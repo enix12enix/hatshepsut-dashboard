@@ -1,0 +1,71 @@
+/* Tabler theme configuration as per requirements */
+:root {
+  /* Color Mode - Light */
+  --tblr-theme-color-mode: light;
+  
+  /* Font family - Sans-serif */
+  --tblr-font-sans-serif: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans', 
+    Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji';
+  
+  /* Theme base, gray shade - Gray */
+  --tblr-gray: #6c757d;
+  
+  /* Theme base, Corner Radius - 1 */
+  --tblr-border-radius: 0.25rem; /* 1 in Tabler's scale */
+  --tblr-border-radius-sm: 0.2rem;
+  --tblr-border-radius-lg: 0.3rem;
+  --tblr-border-radius-xl: 0.4rem;
+  --tblr-border-radius-xxl: 1rem;
+}
+
+body {
+  font-family: var(--tblr-font-sans-serif);
+  color: var(--tblr-body-color);
+  background-color: var(--tblr-body-bg);
+}
+
+/* Ensure light color mode */
+[data-bs-theme=dark] {
+  display: none; /* Force light mode only */
+}
+
+/* Additional customizations for the dashboard */
+.page-wrapper {
+  padding-top: 1rem;
+}
+
+.table-responsive {
+  overflow-x: auto;
+}
+
+.status-badge {
+  display: inline-block;
+  padding: 0.25em 0.5em;
+  font-size: 0.75em;
+  font-weight: 500;
+  line-height: 1;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: baseline;
+  border-radius: 0.25rem;
+}
+
+.status-passed {
+  color: #fff;
+  background-color: #2fb344;
+}
+
+.status-failed {
+  color: #fff;
+  background-color: #d63939;
+}
+
+.status-ignored {
+  color: #fff;
+  background-color: #a0a0a0;
+}
+
+.status-pending {
+  color: #fff;
+  background-color: #f76707;
+}

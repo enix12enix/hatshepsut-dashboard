@@ -1,0 +1,91 @@
+# Dependencies
+node_modules/
+.svelte-kit/
+.svelte/
+
+# Build outputs
+/build/
+/dist/
+/public/build/
+
+# Environment variables
+.env
+.env.local
+.env.production
+.env.development
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+desktop.ini
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Coverage directory used by tools like istanbul
+coverage/
+lib-cov/
+
+# Temporary folders
+tmp/
+temp/
+
+# TypeScript
+*.tsbuildinfo
+dist/
+
+# Next.js (if using related tools)
+.next/
+
+# Production builds (if applicable)
+.output/
+.vercel/
+
+# Svelte specific
+.svelte-kit-tmp/
+
+# Local development settings
+.cordova/
+config.xml
+config.json
+
+# NPM package manager
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.yarn-integrity
+.pnp.*
+.pnp.js
+
+# Vite
+.vite/
+
+# Browser extensions
+*.crx
+
+# Platform files
+*.asar
+
+# Testing
+coverage/
+.nyc_output/
+coverage-final.json
+
+# Lock files (npm will handle this by default)
+npm-shrinkwrap.json
