@@ -9,6 +9,7 @@
   import { formatDateTime, formatExecutionTime } from "$lib/utils/datetime";
   import IconTabler from "$lib/components/IconTabler.svelte";
   import DynamicFilters from "$lib/components/DynamicFilters.svelte";
+  import Pagination from "$lib/components/Pagination.svelte";
   import { getStatusInfo } from "$lib/utils/common";
 
   // Props/data from server load
@@ -70,7 +71,7 @@
       id: "status",
       label: "Filter by Status",
       type: "select" as const,
-    }
+    },
   ];
 
   // Current filter values
@@ -111,9 +112,9 @@
 
   // Dynamic filter handler
   function handleFilterChange(id: string, value: string) {
-    if (id === 'platform') {
+    if (id === "platform") {
       selectedPlatform = value;
-    } else if (id === 'status') {
+    } else if (id === "status") {
       selectedStatus = value;
     }
   }
@@ -125,8 +126,12 @@
   }
 
   // Helper function to handle keyboard events for accessibility
-  function handleKeyDown(e: KeyboardEvent, status: string, platform: string = "all") {
-    if (e.key === 'Enter' || e.key === ' ') {
+  function handleKeyDown(
+    e: KeyboardEvent,
+    status: string,
+    platform: string = "all"
+  ) {
+    if (e.key === "Enter" || e.key === " ") {
       setFilter(status, platform);
     }
   }
@@ -179,7 +184,14 @@
 
     <div class="row row-cards">
       <div class="col-sm-6 col-md-3">
-        <div class="card" style="cursor: pointer;" role="button" tabindex="0" on:click={() => setFilter('all', 'all')} on:keydown={(e) => handleKeyDown(e, 'all', 'all')}>
+        <div
+          class="card"
+          style="cursor: pointer;"
+          role="button"
+          tabindex="0"
+          on:click={() => setFilter("all", "all")}
+          on:keydown={(e) => handleKeyDown(e, "all", "all")}
+        >
           <div class="card-body">
             <div class="row align-items-center">
               <div class="col">
@@ -188,7 +200,15 @@
               </div>
               <div class="col-auto">
                 <span class="bg-blue-lt avatar">
-                  <IconTabler name="list-check" className="icon-tabler-list-check" stroke_width="2" stroke="currentColor" fill="none" stroke_linecap="round" stroke_linejoin="round"/>
+                  <IconTabler
+                    name="list-check"
+                    className="icon-tabler-list-check"
+                    stroke_width="2"
+                    stroke="currentColor"
+                    fill="none"
+                    stroke_linecap="round"
+                    stroke_linejoin="round"
+                  />
                 </span>
               </div>
             </div>
@@ -197,7 +217,14 @@
       </div>
 
       <div class="col-sm-6 col-md-3">
-        <div class="card" style="cursor: pointer;" role="button" tabindex="0" on:click={() => setFilter('P')} on:keydown={(e) => handleKeyDown(e, 'P')}>
+        <div
+          class="card"
+          style="cursor: pointer;"
+          role="button"
+          tabindex="0"
+          on:click={() => setFilter("P")}
+          on:keydown={(e) => handleKeyDown(e, "P")}
+        >
           <div class="card-body">
             <div class="row align-items-center">
               <div class="col">
@@ -206,7 +233,15 @@
               </div>
               <div class="col-auto">
                 <span class="bg-green-lt avatar">
-                  <IconTabler name="check" className="icon-tabler-check" stroke_width="2" stroke="currentColor" fill="none" stroke_linecap="round" stroke_linejoin="round"/>
+                  <IconTabler
+                    name="check"
+                    className="icon-tabler-check"
+                    stroke_width="2"
+                    stroke="currentColor"
+                    fill="none"
+                    stroke_linecap="round"
+                    stroke_linejoin="round"
+                  />
                 </span>
               </div>
             </div>
@@ -215,7 +250,14 @@
       </div>
 
       <div class="col-sm-6 col-md-3">
-        <div class="card" style="cursor: pointer;" role="button" tabindex="0" on:click={() => setFilter('F')} on:keydown={(e) => handleKeyDown(e, 'F')}>
+        <div
+          class="card"
+          style="cursor: pointer;"
+          role="button"
+          tabindex="0"
+          on:click={() => setFilter("F")}
+          on:keydown={(e) => handleKeyDown(e, "F")}
+        >
           <div class="card-body">
             <div class="row align-items-center">
               <div class="col">
@@ -224,7 +266,15 @@
               </div>
               <div class="col-auto">
                 <span class="bg-red-lt avatar">
-                  <IconTabler name="x" className="icon-tabler-x" stroke_width="2" stroke="currentColor" fill="none" stroke_linecap="round" stroke_linejoin="round"/>
+                  <IconTabler
+                    name="x"
+                    className="icon-tabler-x"
+                    stroke_width="2"
+                    stroke="currentColor"
+                    fill="none"
+                    stroke_linecap="round"
+                    stroke_linejoin="round"
+                  />
                 </span>
               </div>
             </div>
@@ -233,7 +283,14 @@
       </div>
 
       <div class="col-sm-6 col-md-3">
-        <div class="card" style="cursor: pointer;" role="button" tabindex="0" on:click={() => setFilter('I')} on:keydown={(e) => handleKeyDown(e, 'I')}>
+        <div
+          class="card"
+          style="cursor: pointer;"
+          role="button"
+          tabindex="0"
+          on:click={() => setFilter("I")}
+          on:keydown={(e) => handleKeyDown(e, "I")}
+        >
           <div class="card-body">
             <div class="row align-items-center">
               <div class="col">
@@ -242,7 +299,15 @@
               </div>
               <div class="col-auto">
                 <span class="bg-gray-lt avatar">
-                  <IconTabler name="ban" className="icon-tabler-ban" stroke_width="2" stroke="currentColor" fill="none" stroke_linecap="round" stroke_linejoin="round"/>
+                  <IconTabler
+                    name="ban"
+                    className="icon-tabler-ban"
+                    stroke_width="2"
+                    stroke="currentColor"
+                    fill="none"
+                    stroke_linecap="round"
+                    stroke_linejoin="round"
+                  />
                 </span>
               </div>
             </div>
@@ -356,30 +421,14 @@
     </div>
 
     <!-- Pagination controls -->
-    <div class="d-flex justify-content-between align-items-center mt-3">
-      <button
-        class="btn btn-primary"
-        disabled={offset === 0}
-        on:click={() => {
-          const newOffset = Math.max(0, offset - limit);
-          fetchData(newOffset);
-        }}
-      >
-        Previous
-      </button>
-      <span
-        >Showing {Math.min(results.length, limit)} of {results.length} results</span
-      >
-      <button
-        class="btn btn-primary"
-        disabled={results.length < limit}
-        on:click={() => {
-          const newOffset = offset + limit;
-          fetchData(newOffset);
-        }}
-      >
-        Next
-      </button>
-    </div>
+<Pagination
+  {offset}
+  {limit}
+  total={summary.total}
+  {loading}
+  fetchData={fetchData}
+  label="results"
+/>
+
   {/if}
 </div>

@@ -1,9 +1,10 @@
 <script lang="ts">
-  import { setExecution } from '$lib/stores/executionStore';
-  import { goto } from '$app/navigation';
-  import { fetchExecutions, type Execution } from '$lib/api/cleopatra';
-  import { formatDateTime } from '$lib/utils/datetime';
-  import { page } from '$app/stores';
+  import { setExecution } from "$lib/stores/executionStore";
+  import { goto } from "$app/navigation";
+  import { fetchExecutions, type Execution } from "$lib/api/cleopatra";
+  import { formatDateTime } from "$lib/utils/datetime";
+  import { page } from "$app/stores";
+  import Pagination from "$lib/components/Pagination.svelte";
 
   // States
   let executions = $state<Execution[]>([]);
@@ -33,8 +34,8 @@
       totalExecutions = result.total;
       error = null;
     } catch (err) {
-      console.error('Error fetching executions:', err);
-      error = err instanceof Error ? err.message : 'An unknown error occurred';
+      console.error("Error fetching executions:", err);
+      error = err instanceof Error ? err.message : "An unknown error occurred";
     } finally {
       loading = false;
     }
@@ -84,17 +85,25 @@
                 {#each executions as execution (execution.id)}
                   <tr>
                     <td class="text-truncate">
-                      <a href="/execution/{execution.id}" class="btn-link"
-                         onclick={(e) => goToResults(execution, e)}>
+                      <a
+                        href="/execution/{execution.id}"
+                        class="btn-link"
+                        onclick={(e) => goToResults(execution, e)}
+                      >
                         {execution.name}
                       </a>
                     </td>
                     <td class="text-truncate">{execution.tag}</td>
                     <td class="text-truncate">{execution.created_by}</td>
-                    <td class="text-truncate">{formatDateTime(execution.time_created)}</td>
+                    <td class="text-truncate"
+                      >{formatDateTime(execution.time_created)}</td
+                    >
                     <td>
-                      <a href="/execution/{execution.id}" class="btn btn-outline-primary btn-sm"
-                         onclick={(e) => goToResults(execution, e)}>
+                      <a
+                        href="/execution/{execution.id}"
+                        class="btn btn-outline-primary btn-sm"
+                        onclick={(e) => goToResults(execution, e)}
+                      >
                         View Results
                       </a>
                     </td>
@@ -108,26 +117,13 @@
     </div>
 
     <!-- Pagination controls -->
-    <div class="d-flex justify-content-between align-items-center mt-3">
-      <button
-        class="btn btn-primary"
-        disabled={offset === 0 || loading}
-        onclick={() => fetchData(Math.max(0, offset - limit))}
-      >
-        Previous
-      </button>
-
-      <span>
-        Showing {executions.length === 0 ? 0 : offset + 1} - {offset + executions.length} of {totalExecutions} executions
-      </span>
-
-      <button
-        class="btn btn-primary"
-        disabled={executions.length < limit || offset + executions.length >= totalExecutions || loading}
-        onclick={() => fetchData(offset + limit)}
-      >
-        Next
-      </button>
-    </div>
+    <Pagination
+      {offset}
+      {limit}
+      total={totalExecutions}
+      {loading}
+      {fetchData}
+      label="executions"
+    />
   {/if}
 </div>
