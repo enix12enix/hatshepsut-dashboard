@@ -11,6 +11,7 @@
   import DynamicFilters from "$lib/components/DynamicFilters.svelte";
   import Pagination from "$lib/components/Pagination.svelte";
   import { getStatusInfo } from "$lib/utils/common";
+  import IgnoreButton from "$lib/components/IgnoreButton.svelte";
 
   // Props/data from server load
   export let data: any;
@@ -136,33 +137,21 @@
     }
   }
 
-  async function ignoreResult(resultId: number) {
-    try {
-      await updateTestResultStatus(resultId, "I");
-
-      const resultIndex = results.findIndex((r) => r.id === resultId);
-      if (resultIndex !== -1) {
-        const currentStatus = results[resultIndex].status;
-        results[resultIndex].status = "I";
-
-        if (currentStatus === "P") summary.pass = Math.max(0, summary.pass - 1);
-        else if (currentStatus === "F")
-          summary.fail = Math.max(0, summary.fail - 1);
-        summary.ignor += 1;
-
-        success = "Test result has been ignored successfully";
-        setTimeout(() => {
-          success = null;
-        }, 5000);
-
-        // Update filter options
-        availablePlatforms = [...new Set(results.map((r) => r.platform))];
-        availableStatuses = [...new Set(results.map((r) => r.status))];
-      }
-    } catch (err) {
-      console.error("Error ignoring test result:", err);
-      error = err instanceof Error ? err.message : "An unknown error occurred";
+  function handleIgnored(resultId: number, originalStatus: string) {
+    // Update the result status
+    const index = results.findIndex((r) => r.id === resultId);
+    if (index !== -1) {
+      results[index].status = "I";
     }
+
+    // Update summary counts
+    if (originalStatus === "P") summary.pass = Math.max(0, summary.pass - 1);
+    if (originalStatus === "F") summary.fail = Math.max(0, summary.fail - 1);
+    summary.ignor += 1;
+
+    // Show success message
+    success = "Test result has been ignored successfully";
+    setTimeout(() => (success = null), 5000);
   }
 </script>
 
@@ -394,16 +383,7 @@
                     {/if}
                   </td>
                   <td>
-                    {#if result.status === "P" || result.status === "F"}
-                      <button
-                        class="btn btn-sm btn-outline-warning"
-                        on:click={() => ignoreResult(result.id)}
-                      >
-                        Ignore It
-                      </button>
-                    {:else}
-                      <span class="text-muted">-</span>
-                    {/if}
+                    <IgnoreButton {result} onIgnored={handleIgnored} />
                   </td>
                 </tr>
               {/each}
@@ -421,14 +401,13 @@
     </div>
 
     <!-- Pagination controls -->
-<Pagination
-  {offset}
-  {limit}
-  total={summary.total}
-  {loading}
-  fetchData={fetchData}
-  label="results"
-/>
-
+    <Pagination
+      {offset}
+      {limit}
+      total={summary.total}
+      {loading}
+      {fetchData}
+      label="results"
+    />
   {/if}
 </div>
